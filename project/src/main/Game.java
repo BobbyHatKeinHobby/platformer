@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import entities.Player;
 import levels.LevelManager;
+import gamestates.Gamestate;
 
 public class Game implements Runnable{
 	
@@ -46,13 +47,31 @@ public class Game implements Runnable{
 	}
 	
 	public void update() {
-		player.update();
-		levelManager.update();
+		switch(Gamestate.state){
+			case MENU:
+				//menu.update();
+				break;
+			case PLAYING:
+				player.update();
+				levelManager.update();
+				break;
+			default:
+				break;
+		}
 	}
 	
 	public void render(Graphics g) {
-		levelManager.draw(g); // Level vor Spieler
-		player.render(g);
+		switch(Gamestate.state){
+			case MENU:
+				//menu.update();
+				break;
+			case PLAYING:
+				levelManager.draw(g); // Level vor Spieler
+				player.render(g);
+				break;
+			default:
+				break;
+		}
 	}
 
 	@Override
